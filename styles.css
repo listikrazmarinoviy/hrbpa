@@ -632,34 +632,18 @@ button {
 }
 
 .speaker-track {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1rem;
-  margin: 3.2rem calc(var(--pad) * -1) 0;
-  padding: 0 var(--pad) 1.5rem;
-  overflow-x: auto;
-  overscroll-behavior-inline: contain;
-  scrollbar-width: none;
-  scroll-snap-type: x proximity;
-  cursor: grab;
-}
-
-.speaker-track::-webkit-scrollbar {
-  display: none;
-}
-
-.speaker-track.is-dragging {
-  cursor: grabbing;
-  scroll-snap-type: none;
+  margin: 3.2rem 0 0;
 }
 
 .speaker-card {
   position: relative;
-  flex: 0 0 clamp(18rem, 27vw, 31rem);
-  aspect-ratio: 0.77;
+  aspect-ratio: 1;
   overflow: hidden;
   color: var(--white);
   background: #0a2837;
-  scroll-snap-align: start;
 }
 
 .speaker-card::after {
@@ -672,9 +656,10 @@ button {
 .speaker-card img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
   filter: grayscale(100%) contrast(1.03);
-  transform: scale(1.01);
+  transform: scale(1);
   transition: filter 0.5s ease, transform 0.8s var(--ease);
 }
 
@@ -714,6 +699,9 @@ button {
 }
 
 .speaker-card--type {
+  grid-column: 1 / -1;
+  min-height: 18rem;
+  aspect-ratio: auto;
   border: 1px solid var(--ink);
   color: var(--ink);
   background: var(--cyan);
@@ -738,6 +726,7 @@ button {
 .speaker-card--type > div {
   position: absolute;
   top: 1.5rem;
+  bottom: 1.5rem;
   display: flex;
   flex-direction: column;
 }
@@ -749,26 +738,11 @@ button {
 
 .speaker-card--type h3 {
   margin-top: auto;
-  font-size: clamp(2rem, 4vw, 4.3rem);
+  font-size: clamp(2rem, 5.5vw, 6rem);
 }
 
 .track-hint {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 1rem;
-  margin-top: 1rem;
-  color: #52636c;
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-}
-
-.track-hint i {
-  width: 5rem;
-  height: 1px;
-  background: var(--ink);
+  display: none;
 }
 
 .tier-grid {
@@ -1816,6 +1790,10 @@ footer > div:last-child {
     margin-top: 3.5rem;
   }
 
+  .speaker-track {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .tier-grid {
     grid-template-columns: 1fr;
   }
@@ -1961,8 +1939,8 @@ footer > div:last-child {
     margin-top: 2.5rem;
   }
 
-  .speaker-card {
-    flex-basis: 79vw;
+  .speaker-track {
+    grid-template-columns: 1fr;
   }
 
   .timeline {

@@ -184,33 +184,6 @@
     document.querySelectorAll("[data-count]").forEach(animateCount);
   }
 
-  const speakerTrack = document.querySelector(".speaker-track");
-  let isDragging = false;
-  let dragStartX = 0;
-  let dragStartScroll = 0;
-  speakerTrack.addEventListener("pointerdown", (event) => {
-    isDragging = true;
-    dragStartX = event.clientX;
-    dragStartScroll = speakerTrack.scrollLeft;
-    speakerTrack.classList.add("is-dragging");
-    speakerTrack.setPointerCapture(event.pointerId);
-  });
-  speakerTrack.addEventListener("pointermove", (event) => {
-    if (!isDragging) return;
-    speakerTrack.scrollLeft = dragStartScroll - (event.clientX - dragStartX) * 1.35;
-  });
-  const endDrag = () => {
-    isDragging = false;
-    speakerTrack.classList.remove("is-dragging");
-  };
-  speakerTrack.addEventListener("pointerup", endDrag);
-  speakerTrack.addEventListener("pointercancel", endDrag);
-  speakerTrack.addEventListener("keydown", (event) => {
-    if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
-      speakerTrack.scrollBy({ left: event.key === "ArrowRight" ? 320 : -320, behavior: reduceMotion ? "auto" : "smooth" });
-    }
-  });
-
   function renderConference(year, animate = true) {
     const item = conferences[year];
     if (!item) return;
