@@ -55,6 +55,14 @@
           </div>
         </div>
 
+        <div class="hero-earth" role="img" aria-labelledby="earth-label">
+          <span class="sr-only" id="earth-label" data-i18n="globeAria">Интерактивная трёхмерная модель Земли</span>
+          <div class="earth-poster" aria-hidden="true"></div>
+          <canvas id="earth-canvas" aria-hidden="true"></canvas>
+          <div class="earth-loading" aria-hidden="true"><span></span><b>3D EARTH</b></div>
+          <div class="earth-caption" aria-hidden="true"><span>EARTH · LIVE</span><small data-i18n="globeHint">Вращайте мышью</small></div>
+        </div>
+
         <div class="hero-data">
           <a class="hero-signal" href="#alliance">
             <span aria-hidden="true">#</span>
@@ -232,5 +240,6 @@
 
     <a class="floating-call" href="tel:+998977022888" aria-label="Позвонить">☎</a>
     <script src="script.js"></script>
+    <script type="module" src="globe.js"></script>
   </body>
 </html>

@@ -1,3 +1,5 @@
 # Asset attributions
 
 - `assets/uzbekistan-provinces.svg` — “Uzbekistan provinces.svg” by Katpatuka, released into the public domain via Wikimedia Commons: https://commons.wikimedia.org/wiki/File:Uzbekistan_provinces.svg
+- `assets/textures/earth-day.jpg`, `earth-night.jpg`, and `earth-clouds.jpg` — Earth texture maps by Solar System Scope, based on NASA imagery and distributed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Source files: [day](https://commons.wikimedia.org/wiki/File:Solarsystemscope_texture_2k_earth_daymap.jpg), [night](https://commons.wikimedia.org/wiki/File:Solarsystemscope_texture_2k_earth_nightmap.jpg), [clouds](https://commons.wikimedia.org/wiki/File:Solarsystemscope_texture_2k_earth_clouds.jpg). Files are stored locally without image edits.
+- `assets/vendor/three.module.min.js` and `three.core.min.js` — Three.js 0.180.0 by the Three.js authors, distributed under the MIT License. A copy of the license is stored in `assets/vendor/three.LICENSE.txt`.
