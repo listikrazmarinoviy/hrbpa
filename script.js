@@ -1,0 +1,388 @@
+(() => {
+  "use strict";
+
+  const root = document.documentElement;
+  const body = document.body;
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const copy = {
+    ru: {
+      menu: "Меню", navAlliance: "Альянс", navResidency: "Резидентство", navConference: "Конференции", navJournal: "Журнал", navMatrix: "Матрица", joinShort: "Стать резидентом",
+      heroEyebrow: "Ташкент · с 2023 года", heroTitle: "Деловая репутация<br />выходит на орбиту", heroText: "Ассоциация HR-бизнес-партнёров Узбекистана. Сообщество компаний, международная конференция и журнал BUSINESS HOLISTIC.", heroPrimary: "Стать резидентом", heroSecondary: "Попасть в журнал",
+      statResidents: "компаний-партнёров", statCountries: "стран участников", statPrint: "экземпляров тиража", scroll: "Исследовать",
+      allianceKicker: "Что мы создаём", allianceTitle: "Среду, в которой доверие<br />становится деловым капиталом", allianceText: "Объединяем компании, экспертов и государственные институты, чтобы знания превращались в связи, публичную экспертизу и совместные проекты.",
+      principle1Title: "Стратегия", principle1Text: "Человеческий капитал становится частью бизнес-стратегии.", principle2Title: "Компетенции", principle2Text: "Практические решения и разбор реальных управленческих задач.", principle3Title: "Инструменты", principle3Text: "Аналитика, цифровые решения и современные методики.", principle4Title: "Сообщество", principle4Text: "Устойчивая сеть для партнёрств и совместных инициатив.",
+      speakersKicker: "Кто выходил на нашу сцену", speakersTitle: "Люди, которые<br />формируют повестку", speakersText: "Руководители государственных институтов, лидеры бизнеса и международные эксперты.",
+      speaker1: "Основатель BUSINESS HOLISTIC Alliance и HRBPA", speaker2: "Председатель Торгово-промышленной палаты Узбекистана", speaker3: "Председатель Ассоциации менеджеров Узбекистана", speaker4: "Председатель международной Ассоциации деловых женщин", speaker5: "Лауреат Нобелевской премии по экономике 2024 года", drag: "Тяните, чтобы посмотреть",
+      residencyKicker: "Резидентство", residencyTitle: "Три уровня<br />делового присутствия", residencyText: "Годовое участие даёт компании доступ к сообществу, событиям, медиа и совместным инициативам.", perYear: "в год", popular: "Главная орбита", choose: "Выбрать уровень",
+      tier1a: "Закрытые профессиональные встречи", tier1b: "Присутствие на ресурсах альянса", tier1c: "Партнёрская сеть", tier2a: "Приоритет на ключевых событиях", tier2b: "Экспертное позиционирование", tier2c: "Информационное освещение", tier3a: "Максимальное присутствие бренда", tier3b: "Партнёрские спецпроекты", tier3c: "Публикации на особых условиях",
+      conferenceKicker: "BUSINESS HOLISTIC", conferenceTitle: "Международная конференция.<br />Каждый год — новая точка роста.", year2023: "Открытие ассоциации", year2025: "Доверие как основа успеха", year2027: "Следующая орбита", edition: "конференция", attendees: "участников", countries: "стран", speakersCount: "спикеров",
+      journalTitle: "Ваш опыт читают<br />там, где принимают решения", journalText: "Международный научно-деловой журнал с адресной дистрибуцией в VIP-вагонах, аэропортах, министерствах, посольствах и банках.", journalCta: "Забронировать публикацию", distribution: "Маршрут тиража", dist1: "Афросиёб", dist2: "Аэропорты", dist3: "Министерства", dist4: "Посольства", dist5: "Банки",
+      matrixKicker: "Матрица Узбекистана", matrixTitle: "14 регионов.<br />Одна карта успеха.", matrixText: "Каждый регион представлен локальными брендами, деловой культурой и инвестиционным потенциалом.", selectedRegion: "Выбранный регион",
+      partnersKicker: "Партнёрская сеть", partnersTitle: "организаций<br />на одной орбите",
+      contactKicker: "Войти в орбиту HRBPA", contactTitle: "Деловая репутация<br />начинается с разговора", contactText: "Оставьте контакты — Секретариат Альянса свяжется с вами в течение рабочего дня.", companyLabel: "Компания", companyPlaceholder: "Название компании", nameLabel: "Контактное лицо", namePlaceholder: "Имя и должность", phoneLabel: "Телефон · Telegram", interestLabel: "Интересует", interestResidency: "Резидентство", interestJournal: "Публикация в журнале", interestConference: "Конференция", interestPartnership: "Партнёрский проект", submit: "Отправить запрос", privacy: "Отправляя форму, вы соглашаетесь на обработку персональных данных.", formReady: "Открываем письмо — проверьте данные и отправьте его.", footerText: "HR Business Partners Association · Ташкент, Узбекистан"
+    },
+    uz: {
+      menu: "Menyu", navAlliance: "Alyans", navResidency: "Rezidentlik", navConference: "Konferensiyalar", navJournal: "Jurnal", navMatrix: "Matritsa", joinShort: "Rezident bo‘lish",
+      heroEyebrow: "Toshkent · 2023-yildan beri", heroTitle: "Ishbilarmonlik obro‘si<br />orbitaga chiqadi", heroText: "O‘zbekiston HR biznes-hamkorlari assotsiatsiyasi. Kompaniyalar hamjamiyati, xalqaro konferensiya va BUSINESS HOLISTIC jurnali.", heroPrimary: "Rezident bo‘lish", heroSecondary: "Jurnalga kirish",
+      statResidents: "hamkor kompaniya", statCountries: "ishtirokchi davlat", statPrint: "nusxa tiraj", scroll: "Kashf etish",
+      allianceKicker: "Biz nima yaratamiz", allianceTitle: "Ishonch biznes kapitaliga<br />aylanadigan muhit", allianceText: "Bilim aloqalar, ommaviy ekspertiza va qo‘shma loyihalarga aylanishi uchun kompaniyalar, mutaxassislar va davlat institutlarini birlashtiramiz.",
+      principle1Title: "Strategiya", principle1Text: "Inson kapitali biznes strategiyasining bir qismiga aylanadi.", principle2Title: "Vakolatlar", principle2Text: "Amaliy yechimlar va real boshqaruv masalalari tahlili.", principle3Title: "Vositalar", principle3Text: "Tahlil, raqamli yechimlar va zamonaviy usullar.", principle4Title: "Hamjamiyat", principle4Text: "Hamkorlik va qo‘shma tashabbuslar uchun barqaror tarmoq.",
+      speakersKicker: "Bizning sahnamizga chiqqanlar", speakersTitle: "Kun tartibini<br />belgilaydigan insonlar", speakersText: "Davlat institutlari rahbarlari, biznes yetakchilari va xalqaro ekspertlar.",
+      speaker1: "BUSINESS HOLISTIC Alliance va HRBPA asoschisi", speaker2: "O‘zbekiston Savdo-sanoat palatasi raisi", speaker3: "O‘zbekiston menejerlar assotsiatsiyasi raisi", speaker4: "Xalqaro ishbilarmon ayollar assotsiatsiyasi raisi", speaker5: "2024-yil iqtisodiyot bo‘yicha Nobel mukofoti laureati", drag: "Ko‘rish uchun suring",
+      residencyKicker: "Rezidentlik", residencyTitle: "Biznes ishtirokining<br />uch darajasi", residencyText: "Yillik a’zolik kompaniyaga hamjamiyat, tadbirlar, media va qo‘shma tashabbuslardan foydalanish imkonini beradi.", perYear: "yiliga", popular: "Asosiy orbita", choose: "Darajani tanlash",
+      tier1a: "Yopiq professional uchrashuvlar", tier1b: "Alyans resurslarida ishtirok", tier1c: "Hamkorlik tarmog‘i", tier2a: "Asosiy tadbirlarda ustuvorlik", tier2b: "Ekspert sifatida pozitsiyalash", tier2c: "Axborot yoritilishi", tier3a: "Brendning maksimal ishtiroki", tier3b: "Maxsus hamkorlik loyihalari", tier3c: "Maxsus shartlarda nashrlar",
+      conferenceKicker: "BUSINESS HOLISTIC", conferenceTitle: "Xalqaro konferensiya.<br />Har yil — yangi o‘sish nuqtasi.", year2023: "Assotsiatsiya ochilishi", year2025: "Ishonch — muvaffaqiyat asosi", year2027: "Keyingi orbita", edition: "konferensiya", attendees: "ishtirokchi", countries: "davlat", speakersCount: "spiker",
+      journalTitle: "Tajribangiz qarorlar qabul<br />qilinadigan joyda o‘qiladi", journalText: "VIP vagonlar, aeroportlar, vazirliklar, elchixonalar va banklarda manzilli tarqatiladigan xalqaro ilmiy-ishbilarmonlik jurnali.", journalCta: "Nashrni band qilish", distribution: "Tiraj yo‘nalishi", dist1: "Afrosiyob", dist2: "Aeroportlar", dist3: "Vazirliklar", dist4: "Elchixonalar", dist5: "Banklar",
+      matrixKicker: "O‘zbekiston matritsasi", matrixTitle: "14 hudud.<br />Yagona muvaffaqiyat xaritasi.", matrixText: "Har bir hudud mahalliy brendlar, ishbilarmonlik madaniyati va investitsion salohiyat bilan namoyon bo‘ladi.", selectedRegion: "Tanlangan hudud",
+      partnersKicker: "Hamkorlik tarmog‘i", partnersTitle: "tashkilot<br />bir orbitada",
+      contactKicker: "HRBPA orbitasiga kiring", contactTitle: "Ishbilarmonlik obro‘si<br />suhbatdan boshlanadi", contactText: "Kontaktlaringizni qoldiring — Alyans kotibiyati bir ish kuni ichida siz bilan bog‘lanadi.", companyLabel: "Kompaniya", companyPlaceholder: "Kompaniya nomi", nameLabel: "Aloqa shaxsi", namePlaceholder: "Ism va lavozim", phoneLabel: "Telefon · Telegram", interestLabel: "Qiziqtiradi", interestResidency: "Rezidentlik", interestJournal: "Jurnalda nashr", interestConference: "Konferensiya", interestPartnership: "Hamkorlik loyihasi", submit: "So‘rov yuborish", privacy: "Formani yuborish orqali shaxsiy ma’lumotlarni qayta ishlashga rozilik bildirasiz.", formReady: "Xat ochilmoqda — ma’lumotlarni tekshiring va yuboring.", footerText: "HR Business Partners Association · Toshkent, O‘zbekiston"
+    },
+    en: {
+      menu: "Menu", navAlliance: "Alliance", navResidency: "Residency", navConference: "Conferences", navJournal: "Journal", navMatrix: "Matrix", joinShort: "Become a resident",
+      heroEyebrow: "Tashkent · since 2023", heroTitle: "Business reputation<br />enters a new orbit", heroText: "Uzbekistan HR Business Partners Association. A business community, an international conference and BUSINESS HOLISTIC journal.", heroPrimary: "Become a resident", heroSecondary: "Get into the journal",
+      statResidents: "partner companies", statCountries: "participating countries", statPrint: "copies in circulation", scroll: "Explore",
+      allianceKicker: "What we create", allianceTitle: "An environment where trust<br />becomes business capital", allianceText: "We connect companies, experts and public institutions so that knowledge turns into relationships, visible expertise and joint projects.",
+      principle1Title: "Strategy", principle1Text: "Human capital becomes part of the business strategy.", principle2Title: "Expertise", principle2Text: "Practical solutions and analysis of real management challenges.", principle3Title: "Tools", principle3Text: "Analytics, digital solutions and modern methods.", principle4Title: "Community", principle4Text: "A lasting network for partnerships and joint initiatives.",
+      speakersKicker: "Who has taken our stage", speakersTitle: "People who<br />shape the agenda", speakersText: "Heads of public institutions, business leaders and international experts.",
+      speaker1: "Founder of BUSINESS HOLISTIC Alliance and HRBPA", speaker2: "Chairman of the Chamber of Commerce and Industry of Uzbekistan", speaker3: "Chairman of the Uzbekistan Managers Association", speaker4: "Chairwoman of the International Association of Business Women", speaker5: "2024 Nobel laureate in Economic Sciences", drag: "Drag to explore",
+      residencyKicker: "Residency", residencyTitle: "Three levels<br />of business presence", residencyText: "Annual membership gives your company access to the community, events, media and joint initiatives.", perYear: "per year", popular: "Main orbit", choose: "Choose level",
+      tier1a: "Private professional meetings", tier1b: "Presence across alliance resources", tier1c: "Partner network", tier2a: "Priority at flagship events", tier2b: "Expert positioning", tier2c: "Media coverage", tier3a: "Maximum brand presence", tier3b: "Partner special projects", tier3c: "Preferred publication terms",
+      conferenceKicker: "BUSINESS HOLISTIC", conferenceTitle: "International conference.<br />A new growth point every year.", year2023: "Association launch", year2025: "Trust as the foundation of success", year2027: "The next orbit", edition: "conference", attendees: "attendees", countries: "countries", speakersCount: "speakers",
+      journalTitle: "Your experience is read<br />where decisions are made", journalText: "An international academic and business journal with targeted distribution in VIP trains, airports, ministries, embassies and banks.", journalCta: "Reserve a publication", distribution: "Circulation route", dist1: "Afrosiyob", dist2: "Airports", dist3: "Ministries", dist4: "Embassies", dist5: "Banks",
+      matrixKicker: "Uzbekistan matrix", matrixTitle: "14 regions.<br />One map of success.", matrixText: "Each region is represented through its local brands, business culture and investment potential.", selectedRegion: "Selected region",
+      partnersKicker: "Partner network", partnersTitle: "organisations<br />in one orbit",
+      contactKicker: "Enter the HRBPA orbit", contactTitle: "Business reputation<br />starts with a conversation", contactText: "Leave your details and the Alliance Secretariat will contact you within one business day.", companyLabel: "Company", companyPlaceholder: "Company name", nameLabel: "Contact person", namePlaceholder: "Name and title", phoneLabel: "Phone · Telegram", interestLabel: "Interested in", interestResidency: "Residency", interestJournal: "Journal publication", interestConference: "Conference", interestPartnership: "Partner project", submit: "Send request", privacy: "By submitting this form, you consent to the processing of personal data.", formReady: "Your email is opening — review the details and send it.", footerText: "HR Business Partners Association · Tashkent, Uzbekistan"
+    }
+  };
+
+  const conferences = {
+    2023: { edition: "I", attendees: "150", countries: "8", speakers: "18", name: { ru: "Открытие ассоциации", uz: "Assotsiatsiya ochilishi", en: "Association launch" } },
+    2024: { edition: "II", attendees: "260", countries: "13", speakers: "24", name: { ru: "Объединить всех", uz: "Barchani birlashtirish", en: "Unite everyone" } },
+    2025: { edition: "III", attendees: "320", countries: "18", speakers: "29", name: { ru: "Доверие как основа успеха", uz: "Ishonch — muvaffaqiyat asosi", en: "Trust as the foundation of success" } },
+    2027: { edition: "IV", attendees: "500+", countries: "25", speakers: "40+", name: { ru: "Следующая орбита", uz: "Keyingi orbita", en: "The next orbit" } }
+  };
+
+  const regions = {
+    ru: [
+      ["Каракалпакстан", "Экология и возрождение Приаралья"], ["Хорезм", "Знания как актив"], ["Навои", "Инновации в недрах"], ["Бухара", "Устойчивый туризм и ESG"], ["Кашкадарья", "Агро-лидеры 2026"], ["Сурхандарья", "Транзит и торговое партнёрство"], ["Самарканд", "Традиции в цифровой экономике"], ["Джизак", "Автопром и инвестиции"], ["Сырдарья", "Ресурсы и доверие"], ["Ташкент", "BUSINESS HOLISTIC"], ["Ташкентская область", "Энергия индустриального роста"], ["Наманган", "Энергия малого бизнеса"], ["Фергана", "Экосистема доверия"], ["Андижан", "Инклюзивный рост"]
+    ],
+    uz: [
+      ["Qoraqalpog‘iston", "Orolbo‘yi ekologiyasi va tiklanishi"], ["Xorazm", "Bilim — aktiv sifatida"], ["Navoiy", "Yer qa’ridagi innovatsiyalar"], ["Buxoro", "Barqaror turizm va ESG"], ["Qashqadaryo", "Agro yetakchilar 2026"], ["Surxondaryo", "Tranzit va savdo hamkorligi"], ["Samarqand", "Raqamli iqtisodiyotda an’analar"], ["Jizzax", "Avtosanoat va investitsiyalar"], ["Sirdaryo", "Resurslar va ishonch"], ["Toshkent", "BUSINESS HOLISTIC"], ["Toshkent viloyati", "Sanoat o‘sishi energiyasi"], ["Namangan", "Kichik biznes energiyasi"], ["Farg‘ona", "Ishonch ekotizimi"], ["Andijon", "Inklyuziv o‘sish"]
+    ],
+    en: [
+      ["Karakalpakstan", "Ecology and the revival of the Aral Sea region"], ["Khorezm", "Knowledge as an asset"], ["Navoi", "Innovation below ground"], ["Bukhara", "Sustainable tourism and ESG"], ["Kashkadarya", "Agri leaders 2026"], ["Surkhandarya", "Transit and trade partnerships"], ["Samarkand", "Traditions in the digital economy"], ["Jizzakh", "Automotive industry and investment"], ["Syrdarya", "Resources and trust"], ["Tashkent", "BUSINESS HOLISTIC"], ["Tashkent region", "The energy of industrial growth"], ["Namangan", "The energy of small business"], ["Fergana", "An ecosystem of trust"], ["Andijan", "Inclusive growth"]
+    ]
+  };
+
+  let currentLang = localStorage.getItem("hrbpa-lang") || "ru";
+  if (!copy[currentLang]) currentLang = "ru";
+  let currentConference = "2025";
+  let currentRegion = 9;
+
+  const setLanguage = (lang) => {
+    currentLang = copy[lang] ? lang : "ru";
+    localStorage.setItem("hrbpa-lang", currentLang);
+    root.lang = currentLang;
+    document.title = currentLang === "uz" ? "HRBPA — O‘zbekiston biznes orbitasi" : currentLang === "en" ? "HRBPA — Uzbekistan's business orbit" : "HRBPA — деловая орбита Узбекистана";
+
+    document.querySelectorAll("[data-i18n]").forEach((element) => {
+      const value = copy[currentLang][element.dataset.i18n];
+      if (value) element.innerHTML = value;
+    });
+    document.querySelectorAll("[data-i18n-placeholder]").forEach((element) => {
+      const value = copy[currentLang][element.dataset.i18nPlaceholder];
+      if (value) element.placeholder = value;
+    });
+    document.querySelectorAll("[data-lang]").forEach((button) => button.classList.toggle("is-active", button.dataset.lang === currentLang));
+    renderConference(currentConference, false);
+    renderRegions();
+  };
+
+  document.querySelectorAll("[data-lang]").forEach((button) => button.addEventListener("click", () => setLanguage(button.dataset.lang)));
+
+  const header = document.querySelector(".site-header");
+  const progress = document.querySelector(".scroll-progress");
+  let ticking = false;
+  const updateScroll = () => {
+    const y = window.scrollY;
+    const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    header.classList.toggle("is-scrolled", y > 24);
+    progress.style.transform = `scaleX(${Math.min(1, y / max)})`;
+    ticking = false;
+  };
+  window.addEventListener("scroll", () => {
+    if (!ticking) {
+      requestAnimationFrame(updateScroll);
+      ticking = true;
+    }
+  }, { passive: true });
+  updateScroll();
+
+  const menuToggle = document.querySelector(".menu-toggle");
+  const nav = document.querySelector(".main-nav");
+  const headerActions = document.querySelector(".header-actions");
+  const closeMenu = () => {
+    menuToggle.setAttribute("aria-expanded", "false");
+    nav.classList.remove("is-open");
+    headerActions.classList.remove("is-open");
+    header.classList.remove("menu-visible");
+    body.classList.remove("menu-open");
+  };
+  menuToggle.addEventListener("click", () => {
+    const open = menuToggle.getAttribute("aria-expanded") !== "true";
+    menuToggle.setAttribute("aria-expanded", String(open));
+    nav.classList.toggle("is-open", open);
+    headerActions.classList.toggle("is-open", open);
+    header.classList.toggle("menu-visible", open);
+    body.classList.toggle("menu-open", open);
+  });
+  nav.querySelectorAll("a").forEach((link) => link.addEventListener("click", closeMenu));
+  window.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeMenu();
+  });
+
+  const revealObserver = "IntersectionObserver" in window ? new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.14 }) : null;
+  document.querySelectorAll(".reveal").forEach((element, index) => {
+    element.style.transitionDelay = `${Math.min(index % 4, 3) * 70}ms`;
+    if (revealObserver && !reduceMotion) revealObserver.observe(element);
+    else element.classList.add("is-visible");
+  });
+
+  const animateCount = (element) => {
+    if (element.dataset.counted) return;
+    element.dataset.counted = "true";
+    const target = Number(element.dataset.count);
+    const duration = reduceMotion ? 1 : 1200;
+    const start = performance.now();
+    const frame = (now) => {
+      const progressValue = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - progressValue, 3);
+      let value = Math.round(target * eased);
+      if (element.dataset.group) value = value.toLocaleString(currentLang === "ru" ? "ru-RU" : currentLang === "uz" ? "uz-UZ" : "en-US");
+      element.textContent = `${value}${element.dataset.suffix || ""}`;
+      if (progressValue < 1) requestAnimationFrame(frame);
+    };
+    requestAnimationFrame(frame);
+  };
+  if ("IntersectionObserver" in window) {
+    const counterObserver = new IntersectionObserver((entries) => entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        animateCount(entry.target);
+        counterObserver.unobserve(entry.target);
+      }
+    }), { threshold: 0.55 });
+    document.querySelectorAll("[data-count]").forEach((counter) => counterObserver.observe(counter));
+  } else {
+    document.querySelectorAll("[data-count]").forEach(animateCount);
+  }
+
+  const speakerTrack = document.querySelector(".speaker-track");
+  let isDragging = false;
+  let dragStartX = 0;
+  let dragStartScroll = 0;
+  speakerTrack.addEventListener("pointerdown", (event) => {
+    isDragging = true;
+    dragStartX = event.clientX;
+    dragStartScroll = speakerTrack.scrollLeft;
+    speakerTrack.classList.add("is-dragging");
+    speakerTrack.setPointerCapture(event.pointerId);
+  });
+  speakerTrack.addEventListener("pointermove", (event) => {
+    if (!isDragging) return;
+    speakerTrack.scrollLeft = dragStartScroll - (event.clientX - dragStartX) * 1.35;
+  });
+  const endDrag = () => {
+    isDragging = false;
+    speakerTrack.classList.remove("is-dragging");
+  };
+  speakerTrack.addEventListener("pointerup", endDrag);
+  speakerTrack.addEventListener("pointercancel", endDrag);
+  speakerTrack.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
+      speakerTrack.scrollBy({ left: event.key === "ArrowRight" ? 320 : -320, behavior: reduceMotion ? "auto" : "smooth" });
+    }
+  });
+
+  function renderConference(year, animate = true) {
+    const item = conferences[year];
+    if (!item) return;
+    currentConference = year;
+    const stage = document.querySelector(".conference-stage");
+    if (animate && !reduceMotion) stage.animate([{ opacity: 0.5, transform: "translateY(10px)" }, { opacity: 1, transform: "translateY(0)" }], { duration: 400, easing: "cubic-bezier(.2,.8,.2,1)" });
+    document.querySelector("#conference-edition").textContent = item.edition;
+    document.querySelector("#conference-year").textContent = year;
+    document.querySelector("#conference-name").textContent = item.name[currentLang];
+    document.querySelector("#conference-attendees").textContent = item.attendees;
+    document.querySelector("#conference-countries").textContent = item.countries;
+    document.querySelector("#conference-speakers").textContent = item.speakers;
+    document.querySelectorAll(".timeline-year").forEach((button) => {
+      const active = button.dataset.year === year;
+      button.classList.toggle("is-active", active);
+      button.setAttribute("aria-selected", String(active));
+    });
+  }
+  document.querySelectorAll(".timeline-year").forEach((button) => button.addEventListener("click", () => renderConference(button.dataset.year)));
+
+  const regionButtons = [...document.querySelectorAll(".region-orbit button")];
+  function renderRegions() {
+    regionButtons.forEach((button, index) => {
+      const [name, theme] = regions[currentLang][index];
+      button.textContent = name;
+      button.dataset.region = name;
+      button.dataset.theme = theme;
+    });
+    selectRegion(currentRegion, false);
+  }
+  function selectRegion(index, animate = true) {
+    currentRegion = index;
+    const button = regionButtons[index];
+    if (!button) return;
+    regionButtons.forEach((item, i) => item.classList.toggle("is-active", i === index));
+    document.querySelector("#region-number").textContent = button.dataset.no;
+    document.querySelector("#region-name").textContent = button.dataset.region;
+    document.querySelector("#region-theme").textContent = button.dataset.theme;
+    const selected = document.querySelector(".matrix-selected");
+    if (animate && !reduceMotion) selected.animate([{ opacity: 0.35, transform: "translateX(-8px)" }, { opacity: 1, transform: "translateX(0)" }], { duration: 320, easing: "ease-out" });
+  }
+  regionButtons.forEach((button, index) => button.addEventListener("click", () => selectRegion(index)));
+
+  document.querySelectorAll("[data-tier]").forEach((button) => button.addEventListener("click", () => {
+    const select = document.querySelector("select[name='interest']");
+    select.selectedIndex = 0;
+    select.dataset.tier = button.dataset.tier;
+    document.querySelector("#contact").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
+    setTimeout(() => document.querySelector("input[name='company']").focus({ preventScroll: true }), reduceMotion ? 0 : 700);
+  }));
+
+  const contactForm = document.querySelector("#contact-form");
+  contactForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const data = new FormData(contactForm);
+    const tier = contactForm.querySelector("select").dataset.tier;
+    const interest = data.get("interest");
+    const subject = `HRBPA: ${interest}${tier ? ` · ${tier}` : ""} · ${data.get("company")}`;
+    const message = [
+      `Company: ${data.get("company")}`,
+      `Contact: ${data.get("name")}`,
+      `Phone / Telegram: ${data.get("phone")}`,
+      `Interest: ${interest}${tier ? ` (${tier})` : ""}`
+    ].join("\n");
+    contactForm.querySelector(".form-status").textContent = copy[currentLang].formReady;
+    window.location.href = `mailto:bilalova@bcguz.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+  });
+
+  if (!reduceMotion && window.matchMedia("(pointer: fine)").matches) {
+    document.querySelectorAll(".magnetic").forEach((element) => {
+      element.addEventListener("pointermove", (event) => {
+        const rect = element.getBoundingClientRect();
+        const x = (event.clientX - rect.left - rect.width / 2) * 0.12;
+        const y = (event.clientY - rect.top - rect.height / 2) * 0.12;
+        element.style.transform = `translate(${x}px, ${y}px)`;
+      });
+      element.addEventListener("pointerleave", () => { element.style.transform = ""; });
+    });
+
+    const magazine = document.querySelector(".magazine-scene");
+    magazine.addEventListener("pointermove", (event) => {
+      const rect = magazine.getBoundingClientRect();
+      const rx = ((event.clientY - rect.top) / rect.height - 0.5) * -5;
+      const ry = ((event.clientX - rect.left) / rect.width - 0.5) * 7;
+      magazine.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
+    });
+    magazine.addEventListener("pointerleave", () => { magazine.style.transform = ""; });
+  }
+
+  const createParticleCanvas = (canvas, count, links) => {
+    if (!canvas) return;
+    const context = canvas.getContext("2d");
+    let width = 0;
+    let height = 0;
+    let frameId;
+    const pointer = { x: 0, y: 0 };
+    let points = [];
+
+    const reset = () => {
+      const rect = canvas.getBoundingClientRect();
+      const dpr = Math.min(2, window.devicePixelRatio || 1);
+      width = rect.width;
+      height = rect.height;
+      canvas.width = Math.round(width * dpr);
+      canvas.height = Math.round(height * dpr);
+      context.setTransform(dpr, 0, 0, dpr, 0, 0);
+      points = Array.from({ length: Math.max(25, Math.round(count * Math.min(1.3, width / 1200))) }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        r: Math.random() * 1.25 + 0.25,
+        vx: (Math.random() - 0.5) * 0.08,
+        vy: (Math.random() - 0.5) * 0.08,
+        a: Math.random() * 0.55 + 0.2
+      }));
+    };
+
+    const draw = () => {
+      context.clearRect(0, 0, width, height);
+      points.forEach((point, index) => {
+        if (!reduceMotion) {
+          point.x += point.vx;
+          point.y += point.vy;
+          if (point.x < -5) point.x = width + 5;
+          if (point.x > width + 5) point.x = -5;
+          if (point.y < -5) point.y = height + 5;
+          if (point.y > height + 5) point.y = -5;
+        }
+        const px = point.x + pointer.x * (index % 4) * 0.6;
+        const py = point.y + pointer.y * (index % 3) * 0.6;
+        context.beginPath();
+        context.arc(px, py, point.r, 0, Math.PI * 2);
+        context.fillStyle = `rgba(202, 248, 247, ${point.a})`;
+        context.fill();
+      });
+
+      if (links) {
+        const nodes = points.slice(0, 26);
+        for (let i = 0; i < nodes.length; i += 1) {
+          for (let j = i + 1; j < nodes.length; j += 1) {
+            const dx = nodes[i].x - nodes[j].x;
+            const dy = nodes[i].y - nodes[j].y;
+            const distance = Math.hypot(dx, dy);
+            if (distance < 125) {
+              context.beginPath();
+              context.moveTo(nodes[i].x, nodes[i].y);
+              context.lineTo(nodes[j].x, nodes[j].y);
+              context.strokeStyle = `rgba(101, 220, 228, ${(1 - distance / 125) * 0.13})`;
+              context.stroke();
+            }
+          }
+        }
+      }
+      if (!reduceMotion) frameId = requestAnimationFrame(draw);
+    };
+
+    const onPointerMove = (event) => {
+      const rect = canvas.getBoundingClientRect();
+      pointer.x = ((event.clientX - rect.left) / rect.width - 0.5) * -5;
+      pointer.y = ((event.clientY - rect.top) / rect.height - 0.5) * -5;
+    };
+    canvas.parentElement.addEventListener("pointermove", onPointerMove, { passive: true });
+    const resizeObserver = new ResizeObserver(() => {
+      cancelAnimationFrame(frameId);
+      reset();
+      draw();
+    });
+    resizeObserver.observe(canvas.parentElement);
+    reset();
+    draw();
+  };
+
+  createParticleCanvas(document.querySelector("#space-canvas"), 105, false);
+  createParticleCanvas(document.querySelector("#contact-canvas"), 55, true);
+  setLanguage(currentLang);
+})();
