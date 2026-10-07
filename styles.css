@@ -2049,6 +2049,389 @@ footer > div:last-child {
   }
 }
 
+/* Prototype-inspired typographic hero. Kept at the end to override earlier hero themes. */
+.hero.hero--moving {
+  --acid: #baff47;
+  --hero-x: 0px;
+  --hero-y: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: auto;
+  min-height: max(48rem, 100svh);
+  max-height: none;
+  padding: clamp(8.5rem, 11vw, 10.5rem) var(--pad) 2.25rem;
+  overflow: hidden;
+  color: var(--ink);
+  background: #f9faf7;
+}
+
+.hero.hero--moving::before {
+  position: absolute;
+  z-index: 0;
+  top: 26%;
+  right: -7rem;
+  width: clamp(14rem, 25vw, 27rem);
+  aspect-ratio: 1;
+  border: 1px solid rgba(3, 21, 33, 0.1);
+  border-radius: 50%;
+  content: "";
+  box-shadow: 0 0 0 3.5rem rgba(186, 255, 71, 0.09), 0 0 0 7rem rgba(3, 21, 33, 0.025);
+  transform: translate(var(--hero-x), var(--hero-y));
+  transition: transform 0.8s var(--ease);
+}
+
+.hero.hero--moving::after {
+  position: absolute;
+  z-index: 0;
+  top: 5.25rem;
+  right: var(--pad);
+  left: var(--pad);
+  height: 1px;
+  content: "";
+  background: rgba(3, 21, 33, 0.18);
+}
+
+.hero--moving .hero-copy {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 92rem;
+  margin: 0;
+  padding: 0;
+  color: var(--ink);
+  background: transparent;
+  box-shadow: none;
+}
+
+.hero--moving .eyebrow {
+  margin-bottom: clamp(1.8rem, 3vw, 3rem);
+  color: #197989;
+}
+
+.hero--moving h1 {
+  position: relative;
+  z-index: 1;
+  width: max-content;
+  max-width: 100%;
+  color: #020b10;
+  font-family: "Manrope", sans-serif;
+  font-size: clamp(5rem, 8.35vw, 9rem);
+  font-weight: 700;
+  letter-spacing: -0.085em;
+  line-height: 0.84;
+}
+
+.hero-title-line {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+}
+
+.hero-title-mark {
+  position: relative;
+  z-index: 1;
+  margin-top: 0.14em;
+  padding: 0 0.12em 0.06em 0.02em;
+  transform: translate(calc(var(--hero-x) * -0.25), calc(var(--hero-y) * -0.25));
+  transition: transform 0.8s var(--ease);
+}
+
+.hero-title-mark::before,
+.hero-title-mark::after {
+  position: absolute;
+  z-index: -1;
+  content: "";
+  pointer-events: none;
+  background: var(--acid);
+  clip-path: inset(0 100% 0 0);
+  animation: hero-scribble 1.05s 0.25s var(--ease) forwards;
+}
+
+.hero-title-mark::before {
+  inset: -0.08em -0.16em -0.04em -0.2em;
+  border: 0.045em solid var(--acid);
+  border-radius: 49% 53% 46% 55%;
+  background: transparent;
+  transform: rotate(-2.5deg) scaleY(0.82);
+}
+
+.hero-title-mark::after {
+  right: -0.06em;
+  bottom: 0.14em;
+  left: 0.14em;
+  height: 0.055em;
+  border-radius: 60% 30% 45% 50%;
+  opacity: 0.78;
+  transform: rotate(1.3deg);
+  animation-delay: 0.48s;
+}
+
+.hero--moving .hero-copy > p {
+  max-width: 49rem;
+  margin: clamp(2.2rem, 4vw, 3.4rem) 0 0;
+  color: #43525a;
+  font-size: clamp(1rem, 1.35vw, 1.25rem);
+}
+
+.hero--moving .hero-actions {
+  margin-top: 1.9rem;
+}
+
+.hero--moving .button {
+  min-height: 3.7rem;
+  border-radius: 0;
+}
+
+.hero--moving .button--light {
+  border-color: var(--ink);
+  color: var(--white);
+  background: var(--ink);
+}
+
+.hero--moving .button--light:hover {
+  border-color: var(--acid);
+  color: var(--ink);
+  background: var(--acid);
+}
+
+.hero--moving .button--ghost {
+  border-color: rgba(3, 21, 33, 0.32);
+  color: var(--ink);
+  background: transparent;
+}
+
+.hero--moving .button--ghost:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+  background: rgba(3, 21, 33, 0.05);
+}
+
+.hero-data {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(13rem, 0.75fr) 2.25fr;
+  width: 100%;
+  margin-top: auto;
+  padding-top: clamp(2.5rem, 5vw, 5rem);
+}
+
+.hero-signal {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 1rem;
+  min-height: 8rem;
+  padding: 1.1rem 1.35rem;
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  background: var(--white);
+  transition: color 0.3s ease, background 0.3s ease;
+}
+
+.hero-signal:hover {
+  background: var(--acid);
+}
+
+.hero-signal > span {
+  display: grid;
+  place-items: center;
+  width: 3.4rem;
+  aspect-ratio: 1;
+  color: var(--acid);
+  background: var(--ink);
+  font-size: 2.35rem;
+  font-weight: 700;
+  line-height: 1;
+  transform: rotate(-5deg);
+}
+
+.hero-signal strong {
+  font-size: 0.69rem;
+  letter-spacing: 0.12em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.hero-signal i {
+  align-self: start;
+  font-size: 1.4rem;
+  font-style: normal;
+}
+
+.hero--moving .hero-stats {
+  position: static;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 100%;
+  margin: 0;
+  border: 0;
+  transform: none;
+}
+
+.hero--moving .hero-stats > div,
+.hero--moving .hero-stats > div:last-child {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  padding: 1rem clamp(1rem, 2vw, 2rem);
+  border: 1px solid var(--ink);
+  border-left: 0;
+}
+
+.hero--moving .hero-stats strong {
+  color: var(--ink);
+  font-family: "Manrope", sans-serif;
+  font-size: clamp(2.5rem, 4.1vw, 4.5rem);
+  font-weight: 600;
+  letter-spacing: -0.08em;
+  line-height: 0.9;
+}
+
+.hero--moving .hero-stats span {
+  max-width: 12rem;
+  margin-top: 0.65rem;
+  color: #506069;
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+@keyframes hero-scribble {
+  to { clip-path: inset(0 -8% 0 0); }
+}
+
+@media (max-width: 900px) {
+  .hero.hero--moving {
+    min-height: max(48rem, 100svh);
+    padding-top: 8.5rem;
+  }
+
+  .hero--moving h1 {
+    font-size: clamp(4.1rem, 10.8vw, 6.3rem);
+  }
+
+  .hero-data {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-signal {
+    width: min(20rem, 100%);
+    min-height: 5.6rem;
+  }
+
+  .hero--moving .hero-stats {
+    position: static;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+  }
+
+  .hero--moving .hero-stats > div:first-child {
+    border-left: 1px solid var(--ink);
+  }
+}
+
+@media (max-width: 620px) {
+  .hero.hero--moving {
+    min-height: 52rem;
+    padding-top: 7.25rem;
+    padding-bottom: 1.25rem;
+  }
+
+  .hero.hero--moving::after {
+    top: 4.7rem;
+  }
+
+  .hero.hero--moving::before {
+    top: 30%;
+    right: -9rem;
+    opacity: 0.65;
+  }
+
+  .hero--moving .eyebrow {
+    margin-bottom: 1.7rem;
+  }
+
+  .hero--moving h1 {
+    width: 100%;
+    font-size: clamp(3.15rem, 14vw, 4.4rem);
+    line-height: 0.89;
+  }
+
+  .hero-title-line {
+    width: 100%;
+  }
+
+  .hero-title-mark {
+    width: max-content;
+    max-width: 100%;
+  }
+
+  .hero--moving .hero-copy > p {
+    margin-top: 2rem;
+    font-size: 0.93rem;
+  }
+
+  .hero--moving .hero-actions {
+    gap: 0.55rem;
+    margin-top: 1.5rem;
+  }
+
+  .hero--moving .hero-actions .button {
+    flex: 1 1 calc(50% - 0.3rem);
+    min-height: 3.25rem;
+    padding: 0.75rem 0.65rem;
+    font-size: 0.59rem;
+  }
+
+  .hero-data {
+    padding-top: 3rem;
+  }
+
+  .hero-signal {
+    min-height: 4.7rem;
+    padding: 0.75rem;
+  }
+
+  .hero-signal > span {
+    width: 2.75rem;
+    font-size: 1.8rem;
+  }
+
+  .hero--moving .hero-stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .hero--moving .hero-stats > div,
+  .hero--moving .hero-stats > div:last-child {
+    min-height: 6.7rem;
+    padding: 0.85rem 0.55rem;
+  }
+
+  .hero--moving .hero-stats strong {
+    font-size: clamp(1.6rem, 8vw, 2.2rem);
+  }
+
+  .hero--moving .hero-stats span {
+    margin-top: 0.5rem;
+    font-size: 0.48rem;
+    letter-spacing: 0.05em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-title-mark::before,
+  .hero-title-mark::after {
+    clip-path: none;
+    animation: none;
+  }
+}
+
 /* Living business map in the hero. */
 .hero-map {
   --map-x: 0px;
@@ -3234,5 +3617,38 @@ footer {
     padding: 0.85rem 0.45rem 0;
     border-top: 1px solid var(--line-dark);
     border-bottom: 0;
+  }
+}
+
+/* The typographic hero intentionally supersedes all legacy hero layout rules above. */
+.hero.hero--moving h1 {
+  max-width: 100%;
+  color: #020b10;
+  font-family: "Manrope", sans-serif;
+  font-size: clamp(5rem, 8.35vw, 9rem);
+  font-weight: 700;
+  letter-spacing: -0.085em;
+  line-height: 0.84;
+}
+
+.hero.hero--moving .eyebrow {
+  margin-bottom: clamp(1.8rem, 3vw, 3rem);
+  color: #197989;
+}
+
+@media (max-width: 900px) {
+  .hero.hero--moving h1 {
+    font-size: clamp(4.1rem, 10.8vw, 6.3rem);
+  }
+}
+
+@media (max-width: 620px) {
+  .hero.hero--moving h1 {
+    font-size: clamp(3.15rem, 14vw, 4.4rem);
+    line-height: 0.89;
+  }
+
+  .hero.hero--moving .eyebrow {
+    margin-bottom: 1.7rem;
   }
 }

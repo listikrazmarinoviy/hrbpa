@@ -44,59 +44,29 @@
     </header>
 
     <main id="main">
-      <section class="hero" aria-labelledby="hero-title">
-        <canvas id="space-canvas" aria-hidden="true"></canvas>
-        <div class="hero-grid" aria-hidden="true"></div>
-        <div class="hero-map" role="img" aria-label="Живая карта деловых связей Узбекистана">
-          <div class="map-aura" aria-hidden="true"></div>
-          <img src="assets/uzbekistan-provinces.svg" alt="" />
-          <svg class="map-network" viewBox="0 0 100 66" aria-hidden="true">
-            <path d="M12 39 C29 31 44 35 61 42 S80 40 94 27" />
-            <path d="M22 47 C38 49 50 46 61 42 S73 31 88 25" />
-            <path d="M42 31 C51 35 55 39 61 42 S71 47 83 45" />
-            <path d="M55 55 C58 50 59 46 61 42 S75 35 92 33" />
-          </svg>
-          <div class="map-nodes" aria-hidden="true">
-            <span style="--x: 12%; --y: 39%; --delay: 0s"><i></i><b>QR</b></span>
-            <span style="--x: 22%; --y: 47%; --delay: .2s"><i></i><b>XO</b></span>
-            <span style="--x: 42%; --y: 31%; --delay: .4s"><i></i><b>NV</b></span>
-            <span style="--x: 47%; --y: 49%; --delay: .6s"><i></i><b>BU</b></span>
-            <span style="--x: 55%; --y: 55%; --delay: .8s"><i></i><b>QA</b></span>
-            <span style="--x: 66%; --y: 57%; --delay: 1s"><i></i><b>SU</b></span>
-            <span style="--x: 61%; --y: 42%; --delay: 1.2s"><i></i><b>SA</b></span>
-            <span style="--x: 70%; --y: 43%; --delay: 1.4s"><i></i><b>JI</b></span>
-            <span style="--x: 77%; --y: 39%; --delay: 1.6s"><i></i><b>SI</b></span>
-            <span style="--x: 84%; --y: 31%; --delay: 1.8s"><i></i><b>TK</b></span>
-            <span style="--x: 88%; --y: 25%; --delay: 2s"><i></i><b>TO</b></span>
-            <span style="--x: 92%; --y: 23%; --delay: 2.2s"><i></i><b>NA</b></span>
-            <span style="--x: 94%; --y: 28%; --delay: 2.4s"><i></i><b>FA</b></span>
-            <span style="--x: 97%; --y: 32%; --delay: 2.6s"><i></i><b>AN</b></span>
-          </div>
-          <div class="map-core" aria-hidden="true"><strong>HRBPA</strong><small data-i18n="mapCore">центр связей</small></div>
-          <div class="map-caption"><span>UZ · 14</span><strong data-i18n="mapCaption">Единая сеть доверия</strong></div>
-        </div>
-
+      <section class="hero hero--moving" aria-labelledby="hero-title">
         <div class="hero-copy">
           <div class="eyebrow"><span></span><b data-i18n="heroEyebrow">Ташкент · с 2023 года</b></div>
-          <h1 id="hero-title" data-i18n="heroTitle">Деловая репутация<br />выходит на орбиту</h1>
+          <h1 id="hero-title" data-i18n="heroTitle"><span class="hero-title-line">Деловая репутация</span><span class="hero-title-line hero-title-mark">в движении</span></h1>
           <p data-i18n="heroText">Ассоциация HR-бизнес-партнёров Узбекистана. Сообщество компаний, международная конференция и журнал BUSINESS HOLISTIC.</p>
           <div class="hero-actions">
             <a class="button button--light magnetic" href="#residency" data-i18n="heroPrimary">Стать резидентом</a>
             <a class="button button--ghost magnetic" href="#journal" data-i18n="heroSecondary">Попасть в журнал</a>
           </div>
-          <figure class="hero-feature">
-            <img src="assets/madina-bilalova.webp" alt="Madina Bilalova" />
-            <figcaption><span data-i18n="heroFeatureLabel">Основатель · BUSINESS HOLISTIC</span><strong>Madina Bilalova</strong></figcaption>
-          </figure>
         </div>
 
-        <div class="hero-stats" aria-label="HRBPA в цифрах">
-          <div><strong data-count="100" data-suffix="+">0</strong><span data-i18n="statResidents">компаний-партнёров</span></div>
-          <div><strong data-count="18">0</strong><span data-i18n="statCountries">стран участников</span></div>
-          <div><strong data-count="3000" data-group="true">0</strong><span data-i18n="statPrint">экземпляров тиража</span></div>
+        <div class="hero-data">
+          <a class="hero-signal" href="#alliance">
+            <span aria-hidden="true">#</span>
+            <strong data-i18n="heroSignal">Люди<br />двигают<br />бизнес</strong>
+            <i aria-hidden="true">↘</i>
+          </a>
+          <div class="hero-stats" aria-label="HRBPA в цифрах">
+            <div><strong data-count="100" data-suffix="+">0</strong><span data-i18n="statResidents">компаний-партнёров</span></div>
+            <div><strong data-count="18">0</strong><span data-i18n="statCountries">стран участников</span></div>
+            <div><strong data-count="3000" data-group="true">0</strong><span data-i18n="statPrint">экземпляров тиража</span></div>
+          </div>
         </div>
-
-        <a class="scroll-cue" href="#alliance"><span data-i18n="scroll">Исследовать</span><i></i></a>
       </section>
 
       <div class="signal-strip" aria-hidden="true">

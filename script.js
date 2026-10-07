@@ -8,7 +8,7 @@
   const copy = {
     ru: {
       menu: "Меню", navAlliance: "Альянс", navResidency: "Резидентство", navConference: "Конференции", navJournal: "Журнал", navMatrix: "Матрица", joinShort: "Стать резидентом",
-      heroEyebrow: "Ташкент · с 2023 года", heroTitle: "Деловая репутация<br />выходит на орбиту", heroText: "Ассоциация HR-бизнес-партнёров Узбекистана. Сообщество компаний, международная конференция и журнал BUSINESS HOLISTIC.", heroPrimary: "Стать резидентом", heroSecondary: "Попасть в журнал", heroFeatureLabel: "Основатель · BUSINESS HOLISTIC", mapCore: "центр связей", mapCaption: "Единая сеть доверия",
+      heroEyebrow: "Ташкент · с 2023 года", heroTitle: "<span class=\"hero-title-line\">Деловая репутация</span><span class=\"hero-title-line hero-title-mark\">в движении</span>", heroText: "Ассоциация HR-бизнес-партнёров Узбекистана. Сообщество компаний, международная конференция и журнал BUSINESS HOLISTIC.", heroPrimary: "Стать резидентом", heroSecondary: "Попасть в журнал", heroSignal: "Люди<br />двигают<br />бизнес",
       statResidents: "компаний-партнёров", statCountries: "стран участников", statPrint: "экземпляров тиража", scroll: "Исследовать",
       allianceKicker: "Что мы создаём", allianceTitle: "Среду, в которой доверие<br />становится деловым капиталом", allianceText: "Объединяем компании, экспертов и государственные институты, чтобы знания превращались в связи, публичную экспертизу и совместные проекты.",
       principle1Title: "Стратегия", principle1Text: "Человеческий капитал становится частью бизнес-стратегии.", principle2Title: "Компетенции", principle2Text: "Практические решения и разбор реальных управленческих задач.", principle3Title: "Инструменты", principle3Text: "Аналитика, цифровые решения и современные методики.", principle4Title: "Сообщество", principle4Text: "Устойчивая сеть для партнёрств и совместных инициатив.",
@@ -24,7 +24,7 @@
     },
     uz: {
       menu: "Menyu", navAlliance: "Alyans", navResidency: "Rezidentlik", navConference: "Konferensiyalar", navJournal: "Jurnal", navMatrix: "Matritsa", joinShort: "Rezident bo‘lish",
-      heroEyebrow: "Toshkent · 2023-yildan beri", heroTitle: "Ishbilarmonlik obro‘si<br />orbitaga chiqadi", heroText: "O‘zbekiston HR biznes-hamkorlari assotsiatsiyasi. Kompaniyalar hamjamiyati, xalqaro konferensiya va BUSINESS HOLISTIC jurnali.", heroPrimary: "Rezident bo‘lish", heroSecondary: "Jurnalga kirish", heroFeatureLabel: "Asoschi · BUSINESS HOLISTIC", mapCore: "aloqalar markazi", mapCaption: "Yagona ishonch tarmog‘i",
+      heroEyebrow: "Toshkent · 2023-yildan beri", heroTitle: "<span class=\"hero-title-line\">Ishbilarmonlik obro‘si</span><span class=\"hero-title-line hero-title-mark\">harakatda</span>", heroText: "O‘zbekiston HR biznes-hamkorlari assotsiatsiyasi. Kompaniyalar hamjamiyati, xalqaro konferensiya va BUSINESS HOLISTIC jurnali.", heroPrimary: "Rezident bo‘lish", heroSecondary: "Jurnalga kirish", heroSignal: "Insonlar<br />biznesni<br />harakatlantiradi",
       statResidents: "hamkor kompaniya", statCountries: "ishtirokchi davlat", statPrint: "nusxa tiraj", scroll: "Kashf etish",
       allianceKicker: "Biz nima yaratamiz", allianceTitle: "Ishonch biznes kapitaliga<br />aylanadigan muhit", allianceText: "Bilim aloqalar, ommaviy ekspertiza va qo‘shma loyihalarga aylanishi uchun kompaniyalar, mutaxassislar va davlat institutlarini birlashtiramiz.",
       principle1Title: "Strategiya", principle1Text: "Inson kapitali biznes strategiyasining bir qismiga aylanadi.", principle2Title: "Vakolatlar", principle2Text: "Amaliy yechimlar va real boshqaruv masalalari tahlili.", principle3Title: "Vositalar", principle3Text: "Tahlil, raqamli yechimlar va zamonaviy usullar.", principle4Title: "Hamjamiyat", principle4Text: "Hamkorlik va qo‘shma tashabbuslar uchun barqaror tarmoq.",
@@ -40,7 +40,7 @@
     },
     en: {
       menu: "Menu", navAlliance: "Alliance", navResidency: "Residency", navConference: "Conferences", navJournal: "Journal", navMatrix: "Matrix", joinShort: "Become a resident",
-      heroEyebrow: "Tashkent · since 2023", heroTitle: "Business reputation<br />enters a new orbit", heroText: "Uzbekistan HR Business Partners Association. A business community, an international conference and BUSINESS HOLISTIC journal.", heroPrimary: "Become a resident", heroSecondary: "Get into the journal", heroFeatureLabel: "Founder · BUSINESS HOLISTIC", mapCore: "network centre", mapCaption: "One network of trust",
+      heroEyebrow: "Tashkent · since 2023", heroTitle: "<span class=\"hero-title-line\">Business reputation</span><span class=\"hero-title-line hero-title-mark\">in motion</span>", heroText: "Uzbekistan HR Business Partners Association. A business community, an international conference and BUSINESS HOLISTIC journal.", heroPrimary: "Become a resident", heroSecondary: "Get into the journal", heroSignal: "People<br />move<br />business",
       statResidents: "partner companies", statCountries: "participating countries", statPrint: "copies in circulation", scroll: "Explore",
       allianceKicker: "What we create", allianceTitle: "An environment where trust<br />becomes business capital", allianceText: "We connect companies, experts and public institutions so that knowledge turns into relationships, visible expertise and joint projects.",
       principle1Title: "Strategy", principle1Text: "Human capital becomes part of the business strategy.", principle2Title: "Expertise", principle2Text: "Practical solutions and analysis of real management challenges.", principle3Title: "Tools", principle3Text: "Analytics, digital solutions and modern methods.", principle4Title: "Community", principle4Text: "A lasting network for partnerships and joint initiatives.",
@@ -273,18 +273,19 @@
     magazine.addEventListener("pointerleave", () => { magazine.style.transform = ""; });
 
     const hero = document.querySelector(".hero");
-    const heroMap = document.querySelector(".hero-map");
-    hero.addEventListener("pointermove", (event) => {
-      const rect = hero.getBoundingClientRect();
-      const x = ((event.clientX - rect.left) / rect.width - 0.5) * 14;
-      const y = ((event.clientY - rect.top) / rect.height - 0.5) * 10;
-      heroMap.style.setProperty("--map-x", `${x}px`);
-      heroMap.style.setProperty("--map-y", `${y}px`);
-    });
-    hero.addEventListener("pointerleave", () => {
-      heroMap.style.setProperty("--map-x", "0px");
-      heroMap.style.setProperty("--map-y", "0px");
-    });
+    if (hero) {
+      hero.addEventListener("pointermove", (event) => {
+        const rect = hero.getBoundingClientRect();
+        const x = ((event.clientX - rect.left) / rect.width - 0.5) * 12;
+        const y = ((event.clientY - rect.top) / rect.height - 0.5) * 8;
+        hero.style.setProperty("--hero-x", `${x}px`);
+        hero.style.setProperty("--hero-y", `${y}px`);
+      });
+      hero.addEventListener("pointerleave", () => {
+        hero.style.setProperty("--hero-x", "0px");
+        hero.style.setProperty("--hero-y", "0px");
+      });
+    }
   }
 
   const createParticleCanvas = (canvas, count, links) => {
