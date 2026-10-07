@@ -3851,3 +3851,154 @@ footer {
     animation: none;
   }
 }
+
+/* Full-bleed editorial video hero. */
+.hero.hero--moving {
+  color: var(--white);
+  background: #031521 url("assets/hero-montage-poster.webp") center / cover no-repeat;
+}
+
+.hero.hero--moving::after {
+  z-index: 4;
+  background: rgba(255, 255, 255, 0.24);
+}
+
+.hero-video {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  overflow: hidden;
+  background: #031521 url("assets/hero-montage-poster.webp") center / cover no-repeat;
+}
+
+.hero-video video {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: saturate(0.88) contrast(1.05);
+}
+
+.hero-video::before,
+.hero-video::after {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+}
+
+.hero-video::before {
+  background: linear-gradient(90deg, rgba(1, 14, 23, 0.9) 0%, rgba(1, 14, 23, 0.75) 47%, rgba(1, 14, 23, 0.25) 82%, rgba(1, 14, 23, 0.38) 100%),
+    linear-gradient(0deg, rgba(1, 14, 23, 0.63) 0%, transparent 34%, rgba(1, 14, 23, 0.18) 100%);
+}
+
+.hero-video::after {
+  opacity: 0.16;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.78' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.42'/%3E%3C/svg%3E");
+  mix-blend-mode: soft-light;
+}
+
+.hero--moving .hero-copy,
+.hero-data {
+  z-index: 3;
+}
+
+.hero.hero--moving h1 {
+  color: var(--white);
+  text-shadow: 0 0.08em 0.34em rgba(0, 0, 0, 0.25);
+}
+
+.hero.hero--moving .eyebrow {
+  color: var(--cyan-2);
+}
+
+.hero.hero--moving .hero-copy > p {
+  color: rgba(245, 251, 251, 0.84);
+  text-shadow: 0 1px 1.2rem rgba(0, 0, 0, 0.32);
+}
+
+.hero.hero--moving .button--light {
+  border-color: var(--white);
+  color: var(--ink);
+  background: var(--white);
+}
+
+.hero.hero--moving .button--light:hover {
+  border-color: var(--acid);
+  background: var(--acid);
+}
+
+.hero.hero--moving .button--ghost {
+  border-color: rgba(255, 255, 255, 0.54);
+  color: var(--white);
+  background: rgba(3, 21, 33, 0.18);
+  backdrop-filter: blur(8px);
+}
+
+.hero.hero--moving .button--ghost:hover {
+  border-color: var(--white);
+  color: var(--white);
+  background: rgba(3, 21, 33, 0.48);
+}
+
+.hero--moving .hero-stats > div,
+.hero--moving .hero-stats > div:last-child {
+  border-color: rgba(255, 255, 255, 0.46);
+  background: rgba(2, 16, 25, 0.58);
+  backdrop-filter: blur(13px);
+}
+
+.hero--moving .hero-stats > div:first-child {
+  border-left: 0;
+}
+
+.hero--moving .hero-stats strong {
+  color: var(--white);
+}
+
+.hero--moving .hero-stats span {
+  color: rgba(232, 242, 244, 0.72);
+}
+
+.hero-signal {
+  border-color: rgba(255, 255, 255, 0.68);
+}
+
+@media (max-width: 900px) {
+  .hero-video::before {
+    background: linear-gradient(90deg, rgba(1, 14, 23, 0.9) 0%, rgba(1, 14, 23, 0.67) 70%, rgba(1, 14, 23, 0.42) 100%),
+      linear-gradient(0deg, rgba(1, 14, 23, 0.72) 0%, transparent 42%, rgba(1, 14, 23, 0.23) 100%);
+  }
+}
+
+@media (max-width: 620px) {
+  .hero.hero--moving {
+    min-height: 52rem;
+  }
+
+  .hero-video video {
+    object-position: center;
+  }
+
+  .hero-video::before {
+    background: linear-gradient(180deg, rgba(1, 14, 23, 0.68) 0%, rgba(1, 14, 23, 0.58) 52%, rgba(1, 14, 23, 0.82) 100%);
+  }
+
+  .hero-data {
+    padding-top: 3rem;
+  }
+
+  .hero--moving .hero-stats > div:first-child {
+    border-left: 1px solid rgba(255, 255, 255, 0.46);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-video video {
+    display: none;
+  }
+}
