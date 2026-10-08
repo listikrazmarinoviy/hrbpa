@@ -370,7 +370,228 @@
     draw();
   };
 
+  const createTrustNetwork = () => {
+    const canvas = document.querySelector("#trust-network");
+    const section = document.querySelector("#alliance");
+    if (!canvas || !section) return;
+    const context = canvas.getContext("2d");
+    if (!context) return;
+
+    const cards = [...section.querySelectorAll("[data-trust-group]")];
+    const pointer = { x: 0, y: 0, active: false };
+    const hubs = [];
+    let nodes = [];
+    let width = 0;
+    let height = 0;
+    let frameId = 0;
+    let activeGroup = -1;
+    let visible = true;
+
+    const random = (() => {
+      let seed = 94731;
+      return () => {
+        seed |= 0;
+        seed = seed + 0x6d2b79f5 | 0;
+        let value = Math.imul(seed ^ seed >>> 15, 1 | seed);
+        value = value + Math.imul(value ^ value >>> 7, 61 | value) ^ value;
+        return ((value ^ value >>> 14) >>> 0) / 4294967296;
+      };
+    })();
+
+    const buildNetwork = () => {
+      const rect = section.getBoundingClientRect();
+      const dpr = Math.min(2, window.devicePixelRatio || 1);
+      width = rect.width;
+      height = rect.height;
+      canvas.width = Math.round(width * dpr);
+      canvas.height = Math.round(height * dpr);
+      context.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      const hubLayout = width < 720
+        ? [[0.18, 0.24], [0.68, 0.19], [0.31, 0.48], [0.79, 0.54]]
+        : [[0.16, 0.22], [0.42, 0.37], [0.68, 0.2], [0.84, 0.45]];
+      hubs.length = 0;
+      hubLayout.forEach(([x, y], group) => hubs.push({ x: x * width, y: y * height, group }));
+
+      const total = width < 720 ? 36 : width < 1100 ? 52 : 72;
+      nodes = Array.from({ length: total }, (_, index) => {
+        const group = index % 4;
+        const hub = hubs[group];
+        const angle = random() * Math.PI * 2;
+        const radiusX = (0.07 + random() * 0.2) * width;
+        const radiusY = (0.045 + random() * 0.15) * height;
+        return {
+          x: Math.max(12, Math.min(width - 12, hub.x + Math.cos(angle) * radiusX)),
+          y: Math.max(12, Math.min(height - 12, hub.y + Math.sin(angle) * radiusY)),
+          vx: (random() - 0.5) * 0.09,
+          vy: (random() - 0.5) * 0.09,
+          size: 0.8 + random() * 1.8,
+          phase: random() * Math.PI * 2,
+          group
+        };
+      });
+    };
+
+    const cardAnchor = (group) => {
+      const card = cards[group];
+      if (!card) return { x: width * ((group + 0.5) / 4), y: height * 0.78 };
+      const sectionRect = section.getBoundingClientRect();
+      const cardRect = card.getBoundingClientRect();
+      return {
+        x: cardRect.left - sectionRect.left + cardRect.width / 2,
+        y: cardRect.top - sectionRect.top + 2
+      };
+    };
+
+    const drawRoute = (hub, anchor, group) => {
+      const highlighted = activeGroup === group;
+      context.beginPath();
+      context.moveTo(hub.x, hub.y);
+      context.bezierCurveTo(hub.x, anchor.y - 90, anchor.x, hub.y + 100, anchor.x, anchor.y);
+      context.strokeStyle = highlighted ? "rgba(5, 121, 139, 0.42)" : "rgba(25, 121, 137, 0.08)";
+      context.lineWidth = highlighted ? 1.4 : 0.75;
+      context.setLineDash(highlighted ? [] : [3, 8]);
+      context.stroke();
+      context.setLineDash([]);
+    };
+
+    const draw = (time = 0) => {
+      context.clearRect(0, 0, width, height);
+
+      hubs.forEach((hub, group) => drawRoute(hub, cardAnchor(group), group));
+
+      for (let i = 0; i < nodes.length; i += 1) {
+        const node = nodes[i];
+        if (!reduceMotion) {
+          node.x += node.vx;
+          node.y += node.vy;
+          const hub = hubs[node.group];
+          node.vx += (hub.x - node.x) * 0.000002;
+          node.vy += (hub.y - node.y) * 0.000002;
+
+          if (pointer.active) {
+            const dx = node.x - pointer.x;
+            const dy = node.y - pointer.y;
+            const distance = Math.max(1, Math.hypot(dx, dy));
+            if (distance < 170) {
+              const force = (1 - distance / 170) * 0.0022;
+              node.vx += dx / distance * force;
+              node.vy += dy / distance * force;
+            }
+          }
+          node.vx *= 0.999;
+          node.vy *= 0.999;
+          if (node.x < 4 || node.x > width - 4) node.vx *= -1;
+          if (node.y < 4 || node.y > height - 4) node.vy *= -1;
+          node.x = Math.max(4, Math.min(width - 4, node.x));
+          node.y = Math.max(4, Math.min(height - 4, node.y));
+        }
+      }
+
+      for (let i = 0; i < nodes.length; i += 1) {
+        for (let j = i + 1; j < nodes.length; j += 1) {
+          const a = nodes[i];
+          const b = nodes[j];
+          const sameGroup = a.group === b.group;
+          const highlighted = activeGroup >= 0 && (a.group === activeGroup || b.group === activeGroup);
+          const maxDistance = sameGroup ? 170 : 108;
+          const distance = Math.hypot(a.x - b.x, a.y - b.y);
+          if (distance > maxDistance) continue;
+          const strength = 1 - distance / maxDistance;
+          context.beginPath();
+          context.moveTo(a.x, a.y);
+          context.lineTo(b.x, b.y);
+          context.strokeStyle = highlighted
+            ? `rgba(7, 132, 150, ${0.08 + strength * 0.24})`
+            : `rgba(16, 93, 108, ${0.025 + strength * (sameGroup ? 0.105 : 0.04)})`;
+          context.lineWidth = highlighted ? 1.05 : 0.7;
+          context.stroke();
+        }
+      }
+
+      if (pointer.active) {
+        nodes.forEach((node) => {
+          const distance = Math.hypot(node.x - pointer.x, node.y - pointer.y);
+          if (distance > 145) return;
+          context.beginPath();
+          context.moveTo(pointer.x, pointer.y);
+          context.lineTo(node.x, node.y);
+          context.strokeStyle = `rgba(101, 220, 228, ${(1 - distance / 145) * 0.25})`;
+          context.lineWidth = 0.8;
+          context.stroke();
+        });
+      }
+
+      nodes.forEach((node) => {
+        const highlighted = activeGroup === node.group;
+        const pulse = reduceMotion ? 1 : 0.88 + Math.sin(time * 0.0013 + node.phase) * 0.12;
+        context.beginPath();
+        context.arc(node.x, node.y, node.size * pulse + (highlighted ? 0.7 : 0), 0, Math.PI * 2);
+        context.fillStyle = highlighted ? "rgba(5, 121, 139, 0.8)" : "rgba(16, 93, 108, 0.36)";
+        context.fill();
+      });
+
+      hubs.forEach((hub, group) => {
+        const highlighted = activeGroup === group;
+        const radius = highlighted ? 17 : 11;
+        context.beginPath();
+        context.arc(hub.x, hub.y, radius, 0, Math.PI * 2);
+        context.strokeStyle = highlighted ? "rgba(101, 220, 228, 0.76)" : "rgba(25, 121, 137, 0.2)";
+        context.lineWidth = highlighted ? 1.5 : 1;
+        context.stroke();
+        context.beginPath();
+        context.arc(hub.x, hub.y, highlighted ? 4 : 2.5, 0, Math.PI * 2);
+        context.fillStyle = highlighted ? "rgba(5, 121, 139, 0.9)" : "rgba(25, 121, 137, 0.45)";
+        context.fill();
+      });
+
+      if (!reduceMotion && visible) frameId = requestAnimationFrame(draw);
+    };
+
+    const setActiveGroup = (group) => {
+      activeGroup = group;
+      cards.forEach((card, index) => card.classList.toggle("is-network-active", index === group));
+      if (reduceMotion) draw();
+    };
+
+    section.addEventListener("pointermove", (event) => {
+      const rect = section.getBoundingClientRect();
+      pointer.x = event.clientX - rect.left;
+      pointer.y = event.clientY - rect.top;
+      pointer.active = true;
+    }, { passive: true });
+    section.addEventListener("pointerleave", () => {
+      pointer.active = false;
+      setActiveGroup(-1);
+    });
+    cards.forEach((card, index) => {
+      card.addEventListener("pointerenter", () => setActiveGroup(index));
+      card.addEventListener("pointerleave", () => setActiveGroup(-1));
+      card.addEventListener("pointerdown", () => setActiveGroup(index), { passive: true });
+    });
+
+    const resizeObserver = new ResizeObserver(() => {
+      cancelAnimationFrame(frameId);
+      buildNetwork();
+      draw();
+    });
+    resizeObserver.observe(section);
+
+    if ("IntersectionObserver" in window) {
+      const visibilityObserver = new IntersectionObserver(([entry]) => {
+        visible = entry.isIntersecting;
+        cancelAnimationFrame(frameId);
+        if (visible) draw();
+      }, { rootMargin: "120px" });
+      visibilityObserver.observe(section);
+    }
+
+    buildNetwork();
+    draw();
+  };
+
   createParticleCanvas(document.querySelector("#space-canvas"), 105, false);
   createParticleCanvas(document.querySelector("#contact-canvas"), 55, true);
+  createTrustNetwork();
   setLanguage(currentLang);
 })();
