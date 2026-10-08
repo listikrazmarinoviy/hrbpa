@@ -3238,24 +3238,30 @@ body {
 
 .journal {
   min-height: 56rem;
-  color: var(--ink);
-  background: var(--editorial-grey);
+  color: var(--white);
+  background: linear-gradient(90deg, rgba(2, 18, 29, 0.92) 0%, rgba(2, 18, 29, 0.8) 43%, rgba(2, 18, 29, 0.48) 100%),
+    url("./assets/journal-office-pexels.webp") center / cover no-repeat;
 }
 
 .journal::before {
-  border-color: rgba(3, 21, 33, 0.11);
-  box-shadow: 0 0 0 8rem rgba(3, 21, 33, 0.025), 0 0 0 16rem rgba(3, 21, 33, 0.018);
+  border-color: rgba(156, 232, 237, 0.2);
+  box-shadow: 0 0 0 8rem rgba(3, 21, 33, 0.08), 0 0 0 16rem rgba(3, 21, 33, 0.05);
 }
 
 .journal-copy > p:not(.section-kicker) {
-  color: #53636b;
+  color: rgba(245, 251, 251, 0.74);
 }
 
 .journal .button--light {
-  border: 1px solid var(--ink);
+  border: 1px solid var(--white);
   border-radius: 999px;
-  color: var(--white);
-  background: var(--ink);
+  color: var(--ink);
+  background: var(--white);
+}
+
+.journal .button--light:hover {
+  border-color: var(--cyan);
+  background: var(--cyan);
 }
 
 .magazine-scene {
