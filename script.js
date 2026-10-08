@@ -85,6 +85,7 @@
   if (!copy[currentLang]) currentLang = "ru";
   let currentConference = "2025";
   let currentRegion = 9;
+  const matrixMapTargets = [];
 
   const setLanguage = (lang) => {
     currentLang = copy[lang] ? lang : "ru";
@@ -213,6 +214,11 @@
   document.querySelectorAll(".timeline-year").forEach((button) => button.addEventListener("click", () => renderConference(button.dataset.year)));
 
   const regionButtons = [...document.querySelectorAll(".region-orbit button")];
+  const syncMatrixMap = (index) => {
+    matrixMapTargets.forEach(({ element, regionIndex }) => {
+      element.classList.toggle("is-active", regionIndex === index);
+    });
+  };
   function renderRegions() {
     regionButtons.forEach((button, index) => {
       const [name, theme] = regions[currentLang][index];
@@ -230,10 +236,61 @@
     document.querySelector("#region-number").textContent = button.dataset.no;
     document.querySelector("#region-name").textContent = button.dataset.region;
     document.querySelector("#region-theme").textContent = button.dataset.theme;
+    syncMatrixMap(index);
     const selected = document.querySelector(".matrix-selected");
     if (animate && !reduceMotion) selected.animate([{ opacity: 0.35, transform: "translateX(-8px)" }, { opacity: 1, transform: "translateX(0)" }], { duration: 320, easing: "ease-out" });
   }
-  regionButtons.forEach((button, index) => button.addEventListener("click", () => selectRegion(index)));
+  regionButtons.forEach((button, index) => {
+    button.addEventListener("click", () => selectRegion(index));
+    button.addEventListener("pointerenter", () => selectRegion(index, false));
+    button.addEventListener("focus", () => selectRegion(index, false));
+  });
+
+  const initMatrixMap = async () => {
+    const host = document.querySelector("#matrix-map");
+    if (!host) return;
+
+    const response = await fetch("assets/uzbekistan-provinces.svg");
+    if (!response.ok) throw new Error("Unable to load the Uzbekistan map");
+    const source = await response.text();
+    const parsed = new DOMParser().parseFromString(source, "image/svg+xml");
+    const svg = parsed.documentElement;
+    svg.removeAttribute("width");
+    svg.removeAttribute("height");
+    svg.setAttribute("viewBox", "0 0 860 564");
+    svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+    svg.classList.add("matrix-map__svg");
+    host.append(svg);
+
+    const regionPathMap = [
+      ["pathQaraqalpaqstan", 0], ["pathXorazm", 1], ["pathNavoiy", 2], ["pathBuxoro", 3],
+      ["pathQashqadaryo", 4], ["pathSurxondaryo", 5], ["pathSamarqand", 6], ["pathJizzax", 7],
+      ["pathGuliston", 8], ["pathToshkent", 10], ["pathNamangan", 11], ["pathFargona", 12], ["pathAndijon", 13]
+    ];
+
+    const connectTarget = (element, regionIndex) => {
+      if (!element) return;
+      element.dataset.regionIndex = String(regionIndex);
+      matrixMapTargets.push({ element, regionIndex });
+      element.addEventListener("pointerenter", () => selectRegion(regionIndex));
+      element.addEventListener("click", () => selectRegion(regionIndex));
+    };
+
+    regionPathMap.forEach(([id, index]) => connectTarget(svg.querySelector(`#${id}`), index));
+
+    const marker = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    marker.classList.add("matrix-city-marker");
+    marker.setAttribute("transform", "translate(668 309)");
+    const markerHalo = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    markerHalo.setAttribute("r", "14");
+    const markerCore = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    markerCore.setAttribute("r", "4");
+    marker.append(markerHalo, markerCore);
+    svg.append(marker);
+    connectTarget(marker, 9);
+    syncMatrixMap(currentRegion);
+  };
+  initMatrixMap().catch(() => {});
 
   document.querySelectorAll("[data-tier]").forEach((button) => button.addEventListener("click", () => {
     const select = document.querySelector("select[name='interest']");
