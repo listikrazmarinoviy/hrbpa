@@ -951,7 +951,13 @@ button {
   padding: clamp(2rem, 6vw, 6rem);
   overflow: hidden;
   color: var(--white);
-  background: var(--ink);
+  background-color: var(--ink);
+  background-image:
+    linear-gradient(90deg, rgba(3, 21, 33, 0.94) 0%, rgba(3, 21, 33, 0.78) 54%, rgba(3, 21, 33, 0.86) 100%),
+    linear-gradient(0deg, rgba(3, 21, 33, 0.76), rgba(3, 21, 33, 0.18)),
+    url("assets/conference-offices.webp");
+  background-position: center;
+  background-size: cover;
 }
 
 .conference-stage > div:not(.stage-orbits) {
@@ -977,7 +983,7 @@ button {
 
 .conference-stage #conference-year {
   display: block;
-  color: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.17);
   font-family: "Unbounded", sans-serif;
   font-size: clamp(5rem, 13vw, 15rem);
   font-weight: 400;
@@ -992,6 +998,7 @@ button {
   font-size: clamp(1.7rem, 3vw, 3.3rem);
   font-weight: 400;
   line-height: 1.08;
+  text-shadow: 0 0.15em 0.8em rgba(0, 0, 0, 0.38);
 }
 
 .conference-metrics {
@@ -1023,6 +1030,7 @@ button {
   aspect-ratio: 1;
   border: 1px solid rgba(101, 220, 228, 0.18);
   border-radius: 50%;
+  opacity: 0.52;
 }
 
 .stage-orbits i {
