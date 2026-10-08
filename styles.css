@@ -698,49 +698,6 @@ button {
   font-size: 0.78rem;
 }
 
-.speaker-card--type {
-  grid-column: 1 / -1;
-  min-height: 18rem;
-  aspect-ratio: auto;
-  border: 1px solid var(--ink);
-  color: var(--ink);
-  background: var(--cyan);
-}
-
-.speaker-card--type::before {
-  position: absolute;
-  top: 12%;
-  right: -22%;
-  width: 80%;
-  aspect-ratio: 1;
-  border: 1px solid rgba(3, 21, 33, 0.45);
-  border-radius: 50%;
-  content: "";
-  box-shadow: 0 0 0 3rem rgba(3, 21, 33, 0.04), 0 0 0 6rem rgba(3, 21, 33, 0.04);
-}
-
-.speaker-card--type::after {
-  display: none;
-}
-
-.speaker-card--type > div {
-  position: absolute;
-  top: 1.5rem;
-  bottom: 1.5rem;
-  display: flex;
-  flex-direction: column;
-}
-
-.speaker-card--type span,
-.speaker-card--type p {
-  color: var(--ink);
-}
-
-.speaker-card--type h3 {
-  margin-top: auto;
-  font-size: clamp(2rem, 5.5vw, 6rem);
-}
-
 .track-hint {
   display: none;
 }
@@ -3121,34 +3078,6 @@ body {
   color: #53636b;
 }
 
-.speaker-card--type {
-  display: block;
-  min-height: 20rem;
-  border-color: var(--ink);
-  background: var(--cyan);
-}
-
-.speaker-card--type > div {
-  position: absolute;
-  inset: 1.8rem;
-  min-height: 0;
-  padding: 0;
-}
-
-.speaker-card--type h3 {
-  margin-top: auto;
-  color: var(--ink);
-  font-family: "Manrope", sans-serif;
-  font-size: clamp(3.2rem, 7vw, 8rem);
-  font-weight: 400;
-  letter-spacing: -0.08em;
-  line-height: 0.8;
-}
-
-.speaker-card--type p {
-  margin-top: 1.2rem;
-}
-
 .residency {
   color: var(--ink);
   background: var(--editorial-white);
@@ -3472,10 +3401,6 @@ footer {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .speaker-card--type {
-    grid-column: 1 / -1;
-  }
-
   .contact {
     grid-template-columns: 1fr;
     gap: 4rem;
@@ -3567,14 +3492,6 @@ footer {
 
   .speaker-card > div {
     min-height: 10.5rem;
-  }
-
-  .speaker-card--type {
-    min-height: 17rem;
-  }
-
-  .speaker-card--type h3 {
-    font-size: clamp(3.2rem, 17vw, 5rem);
   }
 
   .journal {
