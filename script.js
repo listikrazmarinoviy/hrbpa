@@ -420,9 +420,13 @@
         const angle = random() * Math.PI * 2;
         const radiusX = (0.07 + random() * 0.2) * width;
         const radiusY = (0.045 + random() * 0.15) * height;
+        const x = Math.max(12, Math.min(width - 12, hub.x + Math.cos(angle) * radiusX));
+        const y = Math.max(12, Math.min(height - 12, hub.y + Math.sin(angle) * radiusY));
         return {
-          x: Math.max(12, Math.min(width - 12, hub.x + Math.cos(angle) * radiusX)),
-          y: Math.max(12, Math.min(height - 12, hub.y + Math.sin(angle) * radiusY)),
+          x,
+          y,
+          homeX: x,
+          homeY: y,
           vx: (random() - 0.5) * 0.09,
           vy: (random() - 0.5) * 0.09,
           size: 0.8 + random() * 1.8,
@@ -463,24 +467,25 @@
       for (let i = 0; i < nodes.length; i += 1) {
         const node = nodes[i];
         if (!reduceMotion) {
-          node.x += node.vx;
-          node.y += node.vy;
-          const hub = hubs[node.group];
-          node.vx += (hub.x - node.x) * 0.000002;
-          node.vy += (hub.y - node.y) * 0.000002;
+          const targetX = node.homeX + Math.cos(time * 0.00022 + node.phase) * 10;
+          const targetY = node.homeY + Math.sin(time * 0.00018 + node.phase) * 8;
+          node.vx += (targetX - node.x) * 0.0007;
+          node.vy += (targetY - node.y) * 0.0007;
 
           if (pointer.active) {
             const dx = node.x - pointer.x;
             const dy = node.y - pointer.y;
             const distance = Math.max(1, Math.hypot(dx, dy));
             if (distance < 170) {
-              const force = (1 - distance / 170) * 0.0022;
+              const force = (1 - distance / 170) * 0.003;
               node.vx += dx / distance * force;
               node.vy += dy / distance * force;
             }
           }
-          node.vx *= 0.999;
-          node.vy *= 0.999;
+          node.vx *= 0.985;
+          node.vy *= 0.985;
+          node.x += node.vx;
+          node.y += node.vy;
           if (node.x < 4 || node.x > width - 4) node.vx *= -1;
           if (node.y < 4 || node.y > height - 4) node.vy *= -1;
           node.x = Math.max(4, Math.min(width - 4, node.x));
@@ -527,7 +532,7 @@
         const pulse = reduceMotion ? 1 : 0.88 + Math.sin(time * 0.0013 + node.phase) * 0.12;
         context.beginPath();
         context.arc(node.x, node.y, node.size * pulse + (highlighted ? 0.7 : 0), 0, Math.PI * 2);
-        context.fillStyle = highlighted ? "rgba(5, 121, 139, 0.8)" : "rgba(16, 93, 108, 0.36)";
+        context.fillStyle = highlighted ? "rgba(5, 121, 139, 0.9)" : "rgba(10, 82, 98, 0.44)";
         context.fill();
       });
 
