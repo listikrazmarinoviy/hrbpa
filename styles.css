@@ -1165,40 +1165,6 @@ button {
   transform: translate(-118%, -46%) rotate(-21deg) translateZ(-4rem);
 }
 
-.distribution {
-  position: relative;
-  z-index: 3;
-  grid-column: 1 / -1;
-  padding-top: 2rem;
-  border-top: 1px solid var(--line-dark);
-}
-
-.distribution > span {
-  color: #80949d;
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-
-.distribution > div {
-  display: flex;
-  align-items: center;
-  margin-top: 1.2rem;
-}
-
-.distribution i {
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
-}
-
-.distribution b {
-  padding: 0 0.9rem;
-  font-size: 0.7rem;
-  font-weight: 600;
-}
-
 .matrix {
   display: grid;
   grid-template-columns: minmax(18rem, 0.7fr) minmax(28rem, 1.25fr);
@@ -1955,14 +1921,6 @@ footer > div:last-child {
 
   .magazine-page--back {
     transform: translate(-88%, -47%) rotate(-13deg) translateZ(-4rem);
-  }
-
-  .distribution {
-    overflow-x: auto;
-  }
-
-  .distribution > div {
-    min-width: 42rem;
   }
 
   .region-orbit {
@@ -3081,7 +3039,7 @@ body {
 
 .residency {
   color: var(--ink);
-  background: var(--editorial-white);
+  background: radial-gradient(circle at 50% 76%, rgba(199, 168, 90, 0.1), transparent 36%), var(--editorial-white);
 }
 
 .residency .section-head {
@@ -3093,60 +3051,175 @@ body {
 }
 
 .tier-grid {
-  gap: 1rem;
-  margin-top: 4rem;
+  gap: clamp(1rem, 1.5vw, 1.5rem);
+  align-items: stretch;
+  margin-top: 5rem;
   background: transparent;
 }
 
-.tier-card,
-.tier-card:hover {
-  color: var(--ink);
-  background: var(--editorial-white);
-  border: 1px solid var(--line-light);
+.tier-card {
+  --tier-accent: #91a2a8;
+  --tier-accent-rgb: 145, 162, 168;
+  --tier-text: var(--ink);
+  --tier-muted: #53636b;
+  --tier-line: rgba(76, 94, 101, 0.23);
+  --tier-button-bg: var(--ink);
+  --tier-button-text: var(--white);
+  --tier-bg: linear-gradient(145deg, #ffffff 0%, #eef1ef 58%, #e4e9e7 100%);
+  isolation: isolate;
+  min-height: 40rem;
+  overflow: hidden;
+  border: 1px solid rgba(var(--tier-accent-rgb), 0.58);
+  color: var(--tier-text);
+  background: var(--tier-bg);
+  box-shadow: 0 1.8rem 4.5rem rgba(3, 21, 33, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.85);
+  transition: transform 0.45s var(--ease), box-shadow 0.45s var(--ease), border-color 0.45s ease;
+}
+
+.tier-card::before {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  right: 10%;
+  left: 10%;
+  height: 2px;
+  content: "";
+  background: linear-gradient(90deg, transparent, var(--tier-accent), transparent);
+  box-shadow: 0 0 1.4rem rgba(var(--tier-accent-rgb), 0.45);
+}
+
+.tier-card::after {
+  position: absolute;
+  z-index: 0;
+  top: -13%;
+  right: -20%;
+  width: 68%;
+  aspect-ratio: 1;
+  border: 1px solid rgba(var(--tier-accent-rgb), 0.3);
+  border-radius: 50%;
+  content: "";
+  box-shadow: 0 0 0 2.4rem rgba(var(--tier-accent-rgb), 0.055), 0 0 0 4.8rem rgba(var(--tier-accent-rgb), 0.035);
+}
+
+.tier-card > * {
+  position: relative;
+  z-index: 1;
 }
 
 .tier-card:hover {
-  background: #edf0ed;
+  z-index: 2;
+  border-color: rgba(var(--tier-accent-rgb), 0.95);
+  background: var(--tier-bg);
+  box-shadow: 0 2.8rem 6rem rgba(3, 21, 33, 0.17), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transform: translateY(-0.9rem) scale(1.012);
 }
 
-.tier-card--featured,
-.tier-card--featured:hover {
-  color: var(--ink);
-  border-color: var(--ink);
-  background: var(--cyan);
+.tier-card--gold {
+  --tier-accent: #b58a2d;
+  --tier-accent-rgb: 181, 138, 45;
+  --tier-muted: #5d543d;
+  --tier-line: rgba(122, 93, 31, 0.25);
+  --tier-bg: radial-gradient(circle at 82% 8%, rgba(255, 255, 255, 0.84), transparent 25%), linear-gradient(145deg, #fffdf7 0%, #f1e4be 54%, #dbc179 100%);
+  margin-top: -1rem;
+  margin-bottom: 1rem;
+  border-color: rgba(181, 138, 45, 0.72);
+  box-shadow: 0 2.2rem 5.5rem rgba(105, 78, 20, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.92);
 }
 
-.tier-card > span,
-.tier-card--featured > span {
-  color: #197989;
+.tier-card--platinum {
+  --tier-accent: #9ce8ed;
+  --tier-accent-rgb: 156, 232, 237;
+  --tier-text: #f8fbfa;
+  --tier-muted: #b8c8cd;
+  --tier-line: rgba(184, 215, 220, 0.22);
+  --tier-button-bg: var(--cyan);
+  --tier-button-text: var(--ink);
+  --tier-bg: radial-gradient(circle at 82% 5%, rgba(101, 220, 228, 0.2), transparent 26%), linear-gradient(145deg, #173b49 0%, #071e2b 55%, #020d15 100%);
+  border-color: rgba(156, 232, 237, 0.42);
+  box-shadow: 0 2rem 5rem rgba(3, 21, 33, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.13);
 }
 
-.tier-card small,
-.tier-card li,
-.tier-card--featured small,
-.tier-card--featured li {
-  color: #53636b;
+.tier-card > span {
+  display: inline-grid;
+  place-content: center;
+  width: 2.5rem;
+  aspect-ratio: 1;
+  border: 1px solid rgba(var(--tier-accent-rgb), 0.72);
+  border-radius: 50%;
+  color: var(--tier-accent);
+  background: rgba(255, 255, 255, 0.12);
+  font-size: 0.66rem;
 }
 
-.tier-card li,
-.tier-card--featured li {
-  border-color: var(--line-light);
+.tier-card > p {
+  margin-top: 4rem;
+  color: currentColor;
+  font-size: 1.15rem;
+  letter-spacing: 0.15em;
+}
+
+.tier-card h3 {
+  color: currentColor;
+  text-shadow: 0 0.8rem 2.4rem rgba(var(--tier-accent-rgb), 0.14);
+}
+
+.tier-card small {
+  color: var(--tier-muted);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.tier-card ul {
+  margin-top: 2.7rem;
+}
+
+.tier-card li {
+  position: relative;
+  padding-left: 1.3rem;
+  border-color: var(--tier-line);
+  color: var(--tier-muted);
+}
+
+.tier-card li::before {
+  position: absolute;
+  top: 1.05rem;
+  left: 0.1rem;
+  width: 0.4rem;
+  height: 0.4rem;
+  border: 1px solid var(--tier-accent);
+  content: "";
+  transform: rotate(45deg);
 }
 
 .tier-card button {
-  border-color: var(--ink);
-  color: var(--ink);
+  border-color: var(--tier-button-bg);
   border-radius: 999px;
+  color: var(--tier-button-text);
+  background: var(--tier-button-bg);
+  box-shadow: 0 0.8rem 2rem rgba(3, 21, 33, 0.13);
+  transition: color 0.25s ease, background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .tier-card button:hover {
-  color: var(--white);
-  background: var(--ink);
+  color: var(--ink);
+  background: var(--cyan);
+  box-shadow: 0 1rem 2.5rem rgba(3, 21, 33, 0.2);
+  transform: translateY(-0.16rem);
 }
 
-.tier-card--featured button {
-  color: var(--white);
-  background: var(--ink);
+.tier-card--platinum button:hover {
+  color: var(--ink);
+  background: var(--white);
+}
+
+.tier-signal {
+  border-color: rgba(181, 138, 45, 0.8);
+  border-radius: 999px;
+  color: var(--ink);
+  background: rgba(255, 251, 235, 0.64);
+  box-shadow: 0 0.6rem 1.6rem rgba(105, 78, 20, 0.1);
 }
 
 .conference {
@@ -3164,7 +3237,7 @@ body {
 }
 
 .journal {
-  min-height: 68rem;
+  min-height: 56rem;
   color: var(--ink);
   background: var(--editorial-grey);
 }
@@ -3255,14 +3328,6 @@ body {
   box-shadow: 2.2rem 3rem 6rem rgba(0, 0, 0, 0.34);
 }
 
-.distribution {
-  border-color: var(--line-light);
-}
-
-.distribution > span {
-  color: #596970;
-}
-
 .matrix {
   position: relative;
   isolation: isolate;
@@ -3346,12 +3411,31 @@ body {
 }
 
 .region-orbit {
+  min-height: 50rem;
   pointer-events: none;
 }
 
 .region-orbit button,
 .region-core {
   pointer-events: auto;
+}
+
+.region-orbit button {
+  min-height: 5.2rem;
+  padding: 1rem 1.4rem;
+  border-color: rgba(3, 21, 33, 0.2);
+  color: #173744;
+  background: rgba(251, 252, 249, 0.9);
+  box-shadow: 0 0.8rem 2.2rem rgba(3, 21, 33, 0.065);
+  backdrop-filter: blur(7px);
+  font-size: clamp(1.45rem, 1.4vw, 1.65rem);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.region-orbit button:hover,
+.region-orbit button.is-active {
+  box-shadow: 0 1.1rem 2.8rem rgba(3, 21, 33, 0.14);
 }
 
 .partners {
@@ -3495,6 +3579,15 @@ footer {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
+  .journal {
+    min-height: auto;
+  }
+
+  .tier-card--gold {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
   .contact {
     grid-template-columns: 1fr;
     gap: 4rem;
@@ -3617,6 +3710,15 @@ footer {
 
   .matrix-map [data-region-index] {
     transition: none;
+  }
+
+  .tier-card,
+  .tier-card button {
+    transition: none;
+  }
+
+  .tier-card:hover {
+    transform: none;
   }
 }
 
