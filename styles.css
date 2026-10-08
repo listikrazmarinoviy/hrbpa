@@ -955,8 +955,8 @@ button {
   background-image:
     linear-gradient(90deg, rgba(3, 21, 33, 0.94) 0%, rgba(3, 21, 33, 0.78) 54%, rgba(3, 21, 33, 0.86) 100%),
     linear-gradient(0deg, rgba(3, 21, 33, 0.76), rgba(3, 21, 33, 0.18)),
-    url("assets/conference-offices.webp");
-  background-position: center;
+    var(--conference-image, url("assets/conference-2025.webp"));
+  background-position: center, center, var(--conference-position, center);
   background-size: cover;
 }
 

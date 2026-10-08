@@ -57,11 +57,17 @@
   };
 
   const conferences = {
-    2023: { edition: "I", attendees: "150", countries: "8", speakers: "18", name: { ru: "Открытие ассоциации", uz: "Assotsiatsiya ochilishi", en: "Association launch" } },
-    2024: { edition: "II", attendees: "260", countries: "13", speakers: "24", name: { ru: "Объединить всех", uz: "Barchani birlashtirish", en: "Unite everyone" } },
-    2025: { edition: "III", attendees: "320", countries: "18", speakers: "29", name: { ru: "Доверие как основа успеха", uz: "Ishonch — muvaffaqiyat asosi", en: "Trust as the foundation of success" } },
-    2027: { edition: "IV", attendees: "500+", countries: "25", speakers: "40+", name: { ru: "Следующая орбита", uz: "Keyingi orbita", en: "The next orbit" } }
+    2023: { edition: "I", attendees: "150", countries: "8", speakers: "18", image: "assets/conference-2023.webp", imagePosition: "center 42%", name: { ru: "Открытие ассоциации", uz: "Assotsiatsiya ochilishi", en: "Association launch" } },
+    2024: { edition: "II", attendees: "260", countries: "13", speakers: "24", image: "assets/conference-2024.webp", imagePosition: "center 38%", name: { ru: "Объединить всех", uz: "Barchani birlashtirish", en: "Unite everyone" } },
+    2025: { edition: "III", attendees: "320", countries: "18", speakers: "29", image: "assets/conference-2025.webp", imagePosition: "center", name: { ru: "Доверие как основа успеха", uz: "Ishonch — muvaffaqiyat asosi", en: "Trust as the foundation of success" } },
+    2027: { edition: "IV", attendees: "500+", countries: "25", speakers: "40+", image: "assets/conference-2027.webp", imagePosition: "center 48%", name: { ru: "Следующая орбита", uz: "Keyingi orbita", en: "The next orbit" } }
   };
+
+  Object.values(conferences).forEach(({ image }) => {
+    const preload = new Image();
+    preload.decoding = "async";
+    preload.src = image;
+  });
 
   const regions = {
     ru: [
@@ -190,6 +196,8 @@
     currentConference = year;
     const stage = document.querySelector(".conference-stage");
     if (animate && !reduceMotion) stage.animate([{ opacity: 0.5, transform: "translateY(10px)" }, { opacity: 1, transform: "translateY(0)" }], { duration: 400, easing: "cubic-bezier(.2,.8,.2,1)" });
+    stage.style.setProperty("--conference-image", `url("${item.image}")`);
+    stage.style.setProperty("--conference-position", item.imagePosition);
     document.querySelector("#conference-edition").textContent = item.edition;
     document.querySelector("#conference-year").textContent = year;
     document.querySelector("#conference-name").textContent = item.name[currentLang];
